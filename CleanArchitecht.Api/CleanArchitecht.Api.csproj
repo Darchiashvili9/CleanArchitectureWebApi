@@ -12,8 +12,4 @@
     <ProjectReference Include="..\CleanArchitecht.Infrastructure\CleanArchitecht.Infrastructure.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Controllers\" />
-  </ItemGroup>
-
 </Project>

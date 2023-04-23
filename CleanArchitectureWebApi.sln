@@ -15,9 +15,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CleanArchitecht.Infrastruct
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Requests", "Requests", "{FB3CEB19-0313-4E4D-8DA1-FAEBB713EBA4}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "weather", "weather", "{E7C0AE31-A3E6-48F8-8F88-7B5EFCFF6939}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Authentication", "Authentication", "{E7C0AE31-A3E6-48F8-8F88-7B5EFCFF6939}"
 	ProjectSection(SolutionItems) = preProject
-		GetForcast.Http = GetForcast.Http
+		Login.http = Login.http
+		Register.http = Register.http
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docs", "Docs", "{990AFB33-9AA5-4B7D-AFC1-BAFD69E459A1}"
