@@ -11,6 +11,9 @@ namespace CleanArchitecht.Application
             services.AddScoped<IAuthenticationService, AuthenticationService>();
 
             return services;
+
+
+
         }
     }
 }
