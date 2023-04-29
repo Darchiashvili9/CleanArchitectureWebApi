@@ -1,4 +1,5 @@
 ﻿using CleanArchitecht.Application.Common.Interfaces.Authentication;
+using CleanArchitecht.Application.Common.Interfaces.Services;
 using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
@@ -12,6 +13,13 @@ namespace CleanArchitecht.Infrastructure.Authentication
 {
     public class JwtTokenGenerator : IJwtTokenGenerator
     {
+        private readonly IDateTimeProvider _dateTimeProvider;
+
+        public JwtTokenGenerator(IDateTimeProvider dateTimeProvider)
+        {
+            _dateTimeProvider = dateTimeProvider;
+        }
+
         public string GenerateToken(Guid userId, string firstName, string lastName)
         {
             var signinCredentials =
@@ -29,10 +37,10 @@ namespace CleanArchitecht.Infrastructure.Authentication
 
             var securityToken = new JwtSecurityToken(
                 issuer: "CleanArchitectWebApp",
-                expires: DateTime.Now.AddDays(1),
+                expires: _dateTimeProvider.UtcNow.AddMinutes(60),
                 claims: claims,
                 signingCredentials: signinCredentials);
-        
+
             return new JwtSecurityTokenHandler().WriteToken(securityToken);
         }
     }
