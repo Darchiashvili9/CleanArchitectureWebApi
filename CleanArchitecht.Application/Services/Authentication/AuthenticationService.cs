@@ -23,8 +23,10 @@ namespace CleanArchitecht.Application.Services.Authentication
             //create user
 
             //create jwt token
+            Guid userId = Guid.NewGuid();
+            var token = _jwtTokenGenerator.GenerateToken(userId, firstName, lastName);
 
-            return new AuthenticationResult(Guid.NewGuid(), firstName, lastName, email, "token");
+            return new AuthenticationResult(userId, firstName, lastName, email, token);
         }
 
         public AuthenticationResult Login(string email, string password)

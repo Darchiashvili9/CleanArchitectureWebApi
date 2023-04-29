@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using CleanArchitecht.Application.Common.Interfaces.Authentication;
+using CleanArchitecht.Infrastructure.Authentication;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +13,7 @@ namespace CleanArchitecht.Infrastructure
     {
         public static IServiceCollection AddInfrastructure(this IServiceCollection services)
         {
-
+            services.AddSingleton<IJwtTokenGenerator, JwtTokenGenerator>();
             return services;
         }
     }

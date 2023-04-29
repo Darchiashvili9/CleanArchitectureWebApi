@@ -8,7 +8,7 @@ namespace CleanArchitecht.Application.Common.Interfaces.Authentication
 {
     public interface IJwtTokenGenerator
     {
-        string GenerateToke(Guid userId, string firstName, string lastName);
+        string GenerateToken(Guid userId, string firstName, string lastName);
 
     }
 }

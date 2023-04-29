@@ -1,6 +1,10 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <ItemGroup>
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.30.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\CleanArchitecht.application\CleanArchitecht.Application.csproj" />
   </ItemGroup>
 
