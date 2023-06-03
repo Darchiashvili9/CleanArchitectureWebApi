@@ -1,6 +1,8 @@
 ﻿using CleanArchitecht.Application.Common.Interfaces.Authentication;
 using CleanArchitecht.Application.Common.Interfaces.Persistence;
+using CleanArchitecht.Domain.Common.Errors;
 using CleanArchitecht.Domain.Entities;
+using ErrorOr;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,13 +22,13 @@ namespace CleanArchitecht.Application.Services.Authentication
             _userRepository = userRepository;
         }
 
-        public AuthenticationResult Register(string firstName, string lastName, string email, string password)
+        public ErrorOr<AuthenticationResult> Register(string firstName, string lastName, string email, string password)
         {
             //ვამოწმებთ იუზერი გვყავს უკვე თუ არა
 
             if (_userRepository.GetUserByEmail(email) is not null)
             {
-                throw new Exception("user with this email already is registered");
+                return Errors.User.DublicateEmail;
             }
 
             //ვქმნით
@@ -47,20 +49,20 @@ namespace CleanArchitecht.Application.Services.Authentication
             return new AuthenticationResult(user, token);
         }
 
-        public AuthenticationResult Login(string email, string password)
+        public ErrorOr<AuthenticationResult> Login(string email, string password)
         {
             //ვამოწმებთ რომ იუზერი არსებობს
 
             if (_userRepository.GetUserByEmail(email) is not User user)
             {
-                throw new Exception("user with given email does not exist");
+                return Errors.Authentication.InvalidCredentials;
             }
 
             //პაროლს ვამოწმებთ
 
             if (user.Password != password)
             {
-                throw new Exception("invalid password");
+                return Errors.Authentication.InvalidCredentials;
             }
 
             //ვქმნით ტოკენს

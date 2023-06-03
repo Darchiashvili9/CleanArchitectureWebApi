@@ -1,12 +1,12 @@
 ﻿using CleanArchitecht.Application.Services.Authentication;
 using CleanArchitecht.Contracts.Authentication;
+using ErrorOr;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CleanArchitecht.Api.Controllers
 {
-    [ApiController]
     [Route("auth")]
-    public class AuthenticationController : ControllerBase
+    public class AuthenticationController : ApiController
     {
         private IAuthenticationService _authenticationService;
 
@@ -18,21 +18,15 @@ namespace CleanArchitecht.Api.Controllers
         [HttpPost("register")]
         public IActionResult Register(RegisterRequest request)
         {
-            var authResult = _authenticationService.Register(
+            ErrorOr<AuthenticationResult> authResult = _authenticationService.Register(
                 request.FirstName,
                 request.LastName,
                 request.Email,
                 request.Password
                 );
+            return authResult.Match(authResult => Ok(MapUthResult(authResult)),
+                errors => Problem(errors));
 
-            var response = new AuthenticationResponse(
-                authResult.user.Id,
-                authResult.user.FirstName,
-                authResult.user.LastName,
-                authResult.user.Email,
-                authResult.Token);
-
-            return Ok(response);
         }
 
         [HttpPost("login")]
@@ -43,15 +37,20 @@ namespace CleanArchitecht.Api.Controllers
                 request.Password
                 );
 
-            var response = new AuthenticationResponse(
-                authResult.user.Id,
-                authResult.user.FirstName,
-                authResult.user.LastName,
-                authResult.user.Email,
-                authResult.Token);
-
-            return Ok(response);
+            return authResult.Match(authResult => Ok(MapUthResult(authResult)),
+                errors => Problem(errors));
         }
 
+
+
+        private static AuthenticationResponse MapUthResult(AuthenticationResult authResult)
+        {
+            return new AuthenticationResponse(
+                  authResult.user.Id,
+                  authResult.user.FirstName,
+                  authResult.user.LastName,
+                  authResult.user.Email,
+                  authResult.Token);
+        }
     }
 }
