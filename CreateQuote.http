@@ -1,0 +1,16 @@
+@host=Http://localhost:5000
+
+POST {{host}}/quote/add
+Content-Type: application/json
+
+{
+  "quoteId": 1,
+  "quoteText": "vici rom araperi ar vici",
+  "answers": [
+    {
+      "id": 0,
+      "text": "aristotele",
+      "isCorrect": true
+    }
+  ]
+}

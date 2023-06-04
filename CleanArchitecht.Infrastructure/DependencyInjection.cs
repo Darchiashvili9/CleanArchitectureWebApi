@@ -45,6 +45,7 @@ namespace CleanArchitecht.Infrastructure
 
             services.AddScoped<IUserRepository, UserRepository>();
 
+            services.AddScoped<IQuoteRepository, QuoteRepository>();
 
 
 

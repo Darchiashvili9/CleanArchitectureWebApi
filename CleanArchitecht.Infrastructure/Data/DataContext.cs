@@ -13,5 +13,8 @@ namespace CleanArchitecht.Infrastructure.Data
     {
         public DataContext(DbContextOptions<DataContext> options) : base(options) { }
 
+        public DbSet<QuestionModel> Questions { get; set; }
+
+        public DbSet<AnswerModel> Answers { get; set; }
     }
 }

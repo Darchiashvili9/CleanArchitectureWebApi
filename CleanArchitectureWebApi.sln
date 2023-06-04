@@ -26,6 +26,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docs", "Docs", "{990AFB33-9
 		Api.md = Api.md
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Quotes", "Quotes", "{45D8C11C-7125-48EC-987D-EC2ED5FFF090}"
+	ProjectSection(SolutionItems) = preProject
+		CreateQuote.http = CreateQuote.http
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -58,6 +63,7 @@ Global
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{E7C0AE31-A3E6-48F8-8F88-7B5EFCFF6939} = {FB3CEB19-0313-4E4D-8DA1-FAEBB713EBA4}
+		{45D8C11C-7125-48EC-987D-EC2ED5FFF090} = {FB3CEB19-0313-4E4D-8DA1-FAEBB713EBA4}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A5F69FB8-E0F6-4305-AC2B-ECEDBB03585A}
