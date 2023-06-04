@@ -21,15 +21,13 @@ namespace CleanArchitecht.Api.Controllers
             try
             {
                 await this._quotesService.AddQuote(data);
-                return Ok();
             }
             catch
             {
                 return StatusCode(StatusCodes.Status500InternalServerError);
-            }
+            }               
+            
+            return Ok();
         }
-
-
-
     }
 }

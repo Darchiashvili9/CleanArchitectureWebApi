@@ -31,6 +31,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Quotes", "Quotes", "{45D8C1
 		CreateQuote.http = CreateQuote.http
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Quiz", "Quiz", "{4923129F-6D20-469D-B077-2D7CA194C0EF}"
+	ProjectSection(SolutionItems) = preProject
+		Get.http = Get.http
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -64,6 +69,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{E7C0AE31-A3E6-48F8-8F88-7B5EFCFF6939} = {FB3CEB19-0313-4E4D-8DA1-FAEBB713EBA4}
 		{45D8C11C-7125-48EC-987D-EC2ED5FFF090} = {FB3CEB19-0313-4E4D-8DA1-FAEBB713EBA4}
+		{4923129F-6D20-469D-B077-2D7CA194C0EF} = {FB3CEB19-0313-4E4D-8DA1-FAEBB713EBA4}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A5F69FB8-E0F6-4305-AC2B-ECEDBB03585A}
