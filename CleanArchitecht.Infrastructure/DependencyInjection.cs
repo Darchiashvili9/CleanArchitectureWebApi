@@ -2,8 +2,10 @@
 using CleanArchitecht.Application.Common.Interfaces.Persistence;
 using CleanArchitecht.Application.Common.Interfaces.Services;
 using CleanArchitecht.Infrastructure.Authentication;
+using CleanArchitecht.Infrastructure.Data;
 using CleanArchitecht.Infrastructure.Persistence;
 using CleanArchitecht.Infrastructure.Services;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -20,11 +22,32 @@ namespace CleanArchitecht.Infrastructure
             this IServiceCollection services,
             ConfigurationManager configuration)
         {
+
+
+
+
+
+
+
+
+
             services.Configure<JwtSettings>(configuration.GetSection(JwtSettings.SectionName));
             services.AddSingleton<IJwtTokenGenerator, JwtTokenGenerator>();
             services.AddSingleton<IDateTimeProvider, DateTimeProvider>();
 
+
+
+
+
+
+
+
+
             services.AddScoped<IUserRepository, UserRepository>();
+
+
+
+
 
 
             return services;

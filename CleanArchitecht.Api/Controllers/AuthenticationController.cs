@@ -1,6 +1,8 @@
 ﻿using CleanArchitecht.Application.Services.Authentication;
 using CleanArchitecht.Contracts.Authentication;
+using CleanArchitecht.Domain.Entities;
 using ErrorOr;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CleanArchitecht.Api.Controllers
@@ -9,16 +11,22 @@ namespace CleanArchitecht.Api.Controllers
     public class AuthenticationController : ApiController
     {
         private IAuthenticationService _authenticationService;
+        private readonly UserManager<User> _userManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
 
-        public AuthenticationController(IAuthenticationService authenticationService)
+
+        public AuthenticationController(IAuthenticationService authenticationService, UserManager<User> userManager, RoleManager<IdentityRole> roleManager)
         {
             _authenticationService = authenticationService;
+            _userManager = userManager;
+            _roleManager = roleManager;
         }
 
         [HttpPost("register")]
-        public IActionResult Register(RegisterRequest request)
+        public async Task<IActionResult> Register(RegisterRequest request)
         {
-            ErrorOr<AuthenticationResult> authResult = _authenticationService.Register(
+            var authResult = await _authenticationService.Register(
+                request.UserName,
                 request.FirstName,
                 request.LastName,
                 request.Email,
@@ -30,9 +38,9 @@ namespace CleanArchitecht.Api.Controllers
         }
 
         [HttpPost("login")]
-        public IActionResult Login(LoginRequest request)
+        public async Task<IActionResult> Login(LoginRequest request)
         {
-            var authResult = _authenticationService.Login(
+            var authResult = await _authenticationService.Login(
                 request.Email,
                 request.Password
                 );
