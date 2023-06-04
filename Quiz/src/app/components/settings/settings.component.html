@@ -1,0 +1,18 @@
+<form [formGroup]="settingsForm" (ngSubmit)="submitSettingsForm()" ngNativeValidate>
+  <mat-card class="mode">
+    <mat-card-header>
+      <mat-card-title>Select Quiz Mode</mat-card-title>
+    </mat-card-header>
+    <mat-card-content class="quiz__answer">
+      <div>
+        <mat-slide-toggle formControlName="binary" class="mode__toggle" (change)="toggleBinary()">Binary</mat-slide-toggle>
+      </div>
+      <div>
+        <mat-slide-toggle formControlName="multiple" class="mode__toggle" (change)="toggleMultiple()">Multiple choice questions</mat-slide-toggle>
+      </div>
+    </mat-card-content>
+    <mat-card-actions class="quiz__actions" align="end">
+      <button mat-button mat-raised-button color="primary" type="submit">Save</button>
+    </mat-card-actions>
+  </mat-card>
+</form>

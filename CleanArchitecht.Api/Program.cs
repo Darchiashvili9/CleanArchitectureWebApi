@@ -14,7 +14,7 @@ var builder = WebApplication.CreateBuilder(args);
 {
     builder.Services.AddDbContext<DataContext>(opts =>
     {
-        opts.UseSqlServer(connectionString: "Server=(localdb)\\MSSQLLocalDB;Database=ProductsWorldWide;MultipleActiveResultSets=True");
+        opts.UseSqlServer(connectionString: "Server=(localdb)\\MSSQLLocalDB;Database=QuoteQuiz;MultipleActiveResultSets=True");
     });
 
 
@@ -65,8 +65,14 @@ var app = builder.Build();
     app.UseAuthentication();
     app.UseAuthorization();
 
-
+    app.UseCors(x => x
+            .AllowAnyOrigin()
+            .AllowAnyMethod()
+            .AllowAnyHeader());
     app.UseHttpsRedirection();
+
+
+
     app.MapControllers();
     app.Run();
 }

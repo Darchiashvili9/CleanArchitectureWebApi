@@ -1,0 +1,31 @@
+<div class="row">
+  <div class="col-12 mb-3 d-flex justify-content-between">
+    <h1>Quotes</h1>
+    <button mat-raised-button color="primary" (click)="this.createQuote()">
+      Create Quote
+    </button>
+  </div>
+  <div class="col-xl-3 col-lg-4 col-md-6" *ngFor="let quote of quotes">
+    <mat-card class="quote">
+      <mat-card-content class="quote__content">
+        <mat-card>
+          <mat-card-content>"{{quote.question.text}}"</mat-card-content>
+        </mat-card>
+        <div *ngFor="let answer of quote.answers" class="quote__answer">
+          {{ answer.text }}
+        </div>
+      </mat-card-content>
+      <mat-card-actions class="quiz__actions" align="end">
+        <button mat-raised-button color="warn" class="" (click)="this.deleteQuote(quote.question.id)">
+          Delete
+        </button>
+        <button mat-raised-button color="primary" (click)="this.editQuote(quote)">
+          Edit
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</div>
+<div class="loading-screen" *ngIf="this.loading">
+  <mat-spinner diameter="70" color="accent"></mat-spinner>
+</div>

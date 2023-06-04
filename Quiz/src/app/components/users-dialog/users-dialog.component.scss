@@ -1,0 +1,12 @@
+.user-form {
+  display: flex;
+  flex-direction: column;
+
+  &__actions {
+    margin: 0;
+
+    button {
+      min-height: 36px;
+    }
+  }
+}

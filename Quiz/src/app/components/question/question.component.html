@@ -1,0 +1,70 @@
+<div *ngIf="!this.errorMessage && this.question">
+  <div class="quiz-count">
+    <h2>Questions left: {{this.question.userQuestionsCount - 1}}</h2>
+  </div>
+
+  <mat-card class="quiz" *ngIf="this.mode === 'BINARY'">
+    <mat-card-header>
+      <mat-card-title>"{{this.question.text}}"</mat-card-title>
+    </mat-card-header>
+    <mat-card-content class="quiz__answer">
+      <h1>{{this.answer.text}} ?</h1>
+    </mat-card-content>
+    <mat-card-actions class="quiz__actions">
+      <ng-container *ngIf="!this.isAnswered">
+        <button mat-button mat-raised-button color="primary" (click)="this.sendResult(0, true)">YES</button>
+        <button mat-button mat-raised-button color="warn" (click)="this.sendResult(0, false)">NO</button>
+      </ng-container>
+        <div *ngIf="this.isAnswered">
+          <h1>
+            <ng-container *ngIf="this.isCorrect">
+              Correct! The right answer is:
+            </ng-container>
+            <ng-container *ngIf="!this.isCorrect">
+              Sorry, you are wrong! The right answer is:
+            </ng-container>
+            {{this.correctAnswer?.text}}
+          </h1>
+          <button mat-button mat-raised-button color="primary" (click)="this.nextQuestion()" class="quiz__next">NEXT</button>
+        </div>
+    </mat-card-actions>
+    <div class="question-loading" *ngIf="this.loadingQuestion">
+      <mat-spinner diameter="50" color="accent"></mat-spinner>
+    </div>
+  </mat-card>
+
+  <mat-card class="quiz" *ngIf="this.mode === 'MULTIPLE'">
+    <mat-card-header>
+      <mat-card-title>"{{this.question.text}}"</mat-card-title>
+    </mat-card-header>
+    <mat-card-content class="quiz__answers">
+      <ng-container *ngIf="!this.isAnswered">
+        <button mat-button mat-raised-button color="primary" (click)="this.sendResult(answer.id)"
+          *ngFor="let answer of answers; index as i;">{{answer.text}}</button>
+      </ng-container>
+        <div *ngIf="this.isAnswered">
+          <h1>
+            <ng-container *ngIf="this.isCorrect">
+              Correct! The right answer is:
+            </ng-container>
+            <ng-container *ngIf="!this.isCorrect">
+              Sorry, you are wrong! The right answer is:
+            </ng-container>
+            {{this.correctAnswer?.text}}
+          </h1>
+          <button mat-button mat-raised-button color="primary" (click)="this.nextQuestion()" class="quiz__next">NEXT</button>
+        </div>
+    </mat-card-content>
+    <div class="question-loading" *ngIf="this.loadingQuestion">
+      <mat-spinner diameter="50" color="accent"></mat-spinner>
+    </div>
+  </mat-card>
+
+</div>
+<div class="quiz-restart" *ngIf="this.errorMessage">
+  <h1>{{this.errorMessage}}</h1>
+  <button mat-button mat-raised-button color="primary" (click)="this.restartQuiz()">RESTART</button>
+</div>
+<div class="loading-screen" *ngIf="this.loading">
+  <mat-spinner diameter="70" color="accent"></mat-spinner>
+</div>

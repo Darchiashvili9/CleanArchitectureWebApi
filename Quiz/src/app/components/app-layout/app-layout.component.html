@@ -1,0 +1,44 @@
+<div class="app" [class.is-mobile]="mobileQuery.matches">
+  <mat-toolbar color="primary" class="app__toolbar">
+    <div class="app__toolbar--left">
+      <button mat-icon-button (click)="snav.toggle()">
+        <mat-icon>menu</mat-icon>
+      </button>
+      <h1 class="app__title">Quote Quiz</h1>
+    </div>
+    <div class="app__toolbar--right">
+      <button mat-icon-button [routerLink]="['/settings']">
+        <mat-icon matTooltip="Settings">settings</mat-icon>
+      </button>
+      <button mat-icon-button (click)="this.logout()">
+        <mat-icon matTooltip="Logout">logout</mat-icon>
+      </button>
+    </div>
+  </mat-toolbar>
+  <mat-sidenav-container class="app__sidenav-container">
+    <mat-sidenav #snav opened [mode]="mobileQuery.matches ? 'over' : 'side'"
+     [fixedInViewport]="mobileQuery.matches" fixedTopGap="56" class="app__sidenav">
+      <mat-nav-list>
+        <div class="app__sidenav__profile">
+          <mat-icon>account_circle</mat-icon>
+          <span>{{this.username}}</span>
+        </div>
+        <mat-divider></mat-divider>
+        <a mat-list-item [routerLink]="['/quiz']" routerLinkActive="active" class="app__sidenav__link">
+          <mat-icon class="app__sidenav__icon">quiz</mat-icon> Play
+        </a>
+        <a mat-list-item [routerLink]="['/users']" routerLinkActive="active" *ngIf="this.userRole === 'Admin'"
+         class="app__sidenav__link">
+          <mat-icon class="app__sidenav__icon">people</mat-icon> Users
+        </a>
+        <a mat-list-item [routerLink]="['/quotes']" routerLinkActive="active" *ngIf="this.userRole === 'Admin'"
+         class="app__sidenav__link">
+          <mat-icon class="app__sidenav__icon">format_quote</mat-icon> Quotes
+        </a>
+      </mat-nav-list>
+    </mat-sidenav>
+    <mat-sidenav-content class="app__sidenav__content">
+      <router-outlet></router-outlet>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</div>

@@ -1,0 +1,34 @@
+<div class="container auth">
+  <div class="row">
+    <div class="col-12">
+      <form class="auth__form" [formGroup]="loginForm" (ngSubmit)="submitLoginForm()" novalidate>
+        <mat-card class="auth__card">
+          <mat-card-header>
+            <mat-card-title class="mb-4">Famous Quote Quiz Login</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <mat-form-field class="auth__form-field" appearance="outline">
+              <mat-label>Username</mat-label>
+              <input matInput formControlName="username" type="text" required>
+              <mat-error *ngIf="this.loginForm.get('username')?.invalid">This field is required</mat-error>
+            </mat-form-field>
+            <mat-form-field class="auth__form-field" appearance="outline">
+              <mat-label>Password</mat-label>
+              <input matInput formControlName="password" type="password" required>
+              <mat-error *ngIf="this.loginForm.get('password')?.invalid">This field is required</mat-error>
+            </mat-form-field>
+            <mat-error *ngIf="this.serverError">{{this.serverError}}</mat-error>
+          </mat-card-content>
+          <mat-card-actions class="d-flex justify-content-end">
+            <a [routerLink]="['/register']" mat-button color="primary">GO TO REGISTRATION</a>
+            <button mat-raised-button [disabled]="this.loading" type="submit" color="primary" class="auth__submit">
+              <mat-spinner *ngIf="this.loading" diameter="24" color="accent" class="auth__spinner"></mat-spinner>
+              <span *ngIf="!this.loading">LOGIN</span>
+            </button>
+          </mat-card-actions>
+        </mat-card>
+      </form>
+    </div>
+  </div>
+</div>
+

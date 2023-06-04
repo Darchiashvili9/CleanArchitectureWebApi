@@ -1,0 +1,59 @@
+.quiz-count {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  z-index: 2;
+}
+
+.quiz {
+  position: relative;
+  max-width: 400px;
+  padding: 35px;
+
+  &__answer {
+    h1 {
+      text-align: center;
+    }
+  }
+
+  &__answers {
+    display: flex;
+    flex-direction: column;
+
+    button {
+      margin-top: 15px;
+    }
+
+    h1 {
+      margin: 15px 0;
+    }
+  }
+
+  &__actions {
+    display: flex;
+    justify-content: space-around;
+  }
+
+  .question-loading {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    background-color: #fff;
+  }
+
+  &__next {
+    width: 100%;
+  }
+}
+
+.quiz-restart {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}

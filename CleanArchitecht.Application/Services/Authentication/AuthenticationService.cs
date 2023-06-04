@@ -31,7 +31,7 @@ namespace CleanArchitecht.Application.Services.Authentication
             _roleManager = roleManager;
         }
 
-        public async Task<ErrorOr<AuthenticationResult>> Register(string userName, string firstName, string lastName, string email, string password)
+        public async Task<ErrorOr<AuthenticationResult>> Register(string userName, string email, string password)
         {
             //ვამოწმებთ იუზერი გვყავს უკვე თუ არა
 
@@ -41,7 +41,7 @@ namespace CleanArchitecht.Application.Services.Authentication
             //}
 
 
-            var userExists = await _userManager.FindByNameAsync(firstName);
+            var userExists = await _userManager.FindByNameAsync(userName);
 
             if (userExists != null)
             {
@@ -54,8 +54,6 @@ namespace CleanArchitecht.Application.Services.Authentication
             var user = new User
             {
                 UserName = userName,
-                FirstName = firstName,
-                LastName = lastName,
                 Email = email,
                 Password = password,
                 SecurityStamp = Guid.NewGuid().ToString(),

@@ -1,0 +1,37 @@
+<form mat-dialog-content class="quote-form" [formGroup]="quoteForm" (ngSubmit)="submitQuoteForm()" novalidate>
+  <mat-form-field appearance="outline" type="text">
+    <mat-label>Quote</mat-label>
+    <textarea rows="4" matInput formControlName="quoteText"></textarea>
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>Answer 1</mat-label>
+    <input matInput formControlName="quoteAnswer1" type="text">
+    <input formControlName="quoteAnswerId1" type="hidden">
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>Answer 2</mat-label>
+    <input matInput formControlName="quoteAnswer2" type="text">
+    <input formControlName="quoteAnswerId2" type="hidden">
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>Answer 3</mat-label>
+    <input matInput formControlName="quoteAnswer3" type="text">
+    <input formControlName="quoteAnswerId3" type="hidden">
+  </mat-form-field>
+  <div>Select correct answer:</div>
+  <mat-form-field appearance="outline">
+    <mat-label>Select an option</mat-label>
+    <mat-select formControlName="correctAnswerIndex">
+      <mat-option [value]="0">Answer 1</mat-option>
+      <mat-option [value]="1">Answer 2</mat-option>
+      <mat-option [value]="2">Answer 3</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <div mat-dialog-actions align="end">
+    <button mat-button color="primary" (click)="onCancel()">Cancel</button>
+    <button mat-button mat-raised-button [disabled]="this.loading" color="primary" type="submit">
+      <mat-spinner *ngIf="this.loading" diameter="24" color="accent" class="auth__spinner"></mat-spinner>
+      <span *ngIf="!this.loading">Save</span>
+    </button>
+  </div>
+</form>

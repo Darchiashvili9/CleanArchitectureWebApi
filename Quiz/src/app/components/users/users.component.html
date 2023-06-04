@@ -1,0 +1,41 @@
+<div class="d-flex justify-content-between">
+  <h1>Users</h1>
+  <button mat-raised-button color="primary" class="mb-3" (click)="this.createUser()">
+    Create User
+  </button>
+</div>
+<mat-table [dataSource]="dataSource$" class="mat-elevation-z8">
+  <ng-container matColumnDef="id">
+    <mat-header-cell *matHeaderCellDef>Id</mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element.id}} </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="userName">
+    <mat-header-cell *matHeaderCellDef>Username</mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element.userName}} </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="email">
+    <mat-header-cell *matHeaderCellDef>Email</mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element.email}} </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="role">
+    <mat-header-cell *matHeaderCellDef>Role</mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element.role}} </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="actions">
+    <mat-header-cell *matHeaderCellDef>Actions</mat-header-cell>
+    <mat-cell *matCellDef="let element">
+      <button mat-icon-button (click)="this.editUser(element)">
+        <mat-icon matTooltip="Edit">edit</mat-icon>
+      </button>
+      <button mat-icon-button (click)="this.deleteUser(element.id)">
+        <mat-icon matTooltip="Delete">delete</mat-icon>
+      </button>
+    </mat-cell>
+  </ng-container>
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  <h1 *matNoDataRow class="empty-table">No data</h1>
+</mat-table>
+<div class="loading-screen" *ngIf="this.loading">
+  <mat-spinner diameter="70" color="accent"></mat-spinner>
+</div>

@@ -27,8 +27,6 @@ namespace CleanArchitecht.Api.Controllers
         {
             var authResult = await _authenticationService.Register(
                 request.UserName,
-                request.FirstName,
-                request.LastName,
                 request.Email,
                 request.Password
                 );
@@ -55,8 +53,6 @@ namespace CleanArchitecht.Api.Controllers
         {
             return new AuthenticationResponse(
                   authResult.user.Id,
-                  authResult.user.FirstName,
-                  authResult.user.LastName,
                   authResult.user.Email,
                   authResult.Token);
         }

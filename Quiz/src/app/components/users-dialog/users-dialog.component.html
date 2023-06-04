@@ -1,0 +1,37 @@
+<form mat-dialog-content [formGroup]="userForm" (ngSubmit)="submitUserForm()" class="user-form" novalidate>
+  <mat-form-field appearance="outline" type="text">
+    <mat-label>User Name</mat-label>
+    <input matInput formControlName="userName" type="text">
+    <mat-error *ngIf="this.userForm.get('userName')?.invalid">This field is required</mat-error>
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>Email</mat-label>
+    <input matInput formControlName="email" type="text">
+    <mat-error *ngIf="this.userForm.get('email')?.invalid">This field is required</mat-error>
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>Password</mat-label>
+    <input matInput formControlName="password" type="password">
+    <mat-error *ngIf="this.userForm.get('password')?.invalid">This field is required</mat-error>
+  </mat-form-field>
+  <ng-container *ngIf="this.currentUserId !== this.selectedUserId">
+    <mat-form-field appearance="outline">
+      <mat-label>Select user role</mat-label>
+      <mat-select formControlName="role">
+        <mat-option value="User">User</mat-option>
+        <mat-option value="Admin">Admin</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-checkbox formControlName="isDisabled">
+    <span class="checkbox-text">Disable user</span>
+    </mat-checkbox>
+  </ng-container>
+  <input formControlName="id" type="hidden">
+  <div mat-dialog-actions align="end" class="user-form__actions">
+    <button mat-button color="primary" (click)="onCancel()">Cancel</button>
+    <button mat-button mat-raised-button [disabled]="this.loading" color="primary" type="submit">
+      <mat-spinner *ngIf="this.loading" diameter="24" color="accent" class="auth__spinner"></mat-spinner>
+      <span *ngIf="!this.loading">Save</span>
+    </button>
+  </div>
+</form>

@@ -1,0 +1,15 @@
+
+
+.quote-form {
+  display: flex;
+  flex-direction: column;
+  min-width: 320px;
+
+  .mat-dialog-actions {
+    margin: 0;
+
+    button {
+      min-height: 36px;
+    }
+  }
+}

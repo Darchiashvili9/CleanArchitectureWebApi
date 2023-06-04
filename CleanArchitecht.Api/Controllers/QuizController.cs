@@ -28,7 +28,7 @@ namespace CleanArchitecht.Api.Controllers
             {
                 return StatusCode(StatusCodes.Status500InternalServerError);
             }
-            return Ok();
+            return Ok(question);
         }
 
 

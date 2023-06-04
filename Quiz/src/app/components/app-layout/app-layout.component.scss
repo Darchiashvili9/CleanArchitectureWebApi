@@ -1,0 +1,102 @@
+.app {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+
+  $app: &;
+
+  .is-mobile {
+    #{$app}__toolbar {
+      position: fixed;
+      /* Make sure the toolbar will stay on top of the content as it scrolls past. */
+      z-index: 2;
+    }
+
+    #{$app}__sidenav-container {
+      /* When the sidenav is fixed, don't constrain the height of the sidenav container. This allows the
+      `<body>` to be our scrolling element for mobile layouts. */
+      flex: 1 0 auto;
+    }
+  }
+
+  &__toolbar {
+    display: flex;
+    justify-content: space-between;
+
+    &--left,
+    &--right {
+      display: flex;
+      align-items: center;
+    }
+
+    &--left {
+      position: relative;
+    }
+
+    &--right {
+      button {
+        margin-left: 10px;
+      }
+    }
+  }
+
+  &__sidenav-container {
+      /* When the sidenav is not fixed, stretch the sidenav container to fill the available space. This
+      causes `<mat-sidenav-content>` to act as our scrolling element for desktop layouts. */
+      flex: 1;
+  }
+
+  &__sidenav {
+    min-width: 200px;
+
+    &__link {
+      &.active {
+        background: rgba(#3f51b5, 0.2);
+        color: #3f51b5;
+      }
+    }
+
+    &__icon {
+      margin-right: 10px;
+    }
+
+    &__profile {
+      display: flex;
+      align-items: center;
+      margin: 15px 0 20px 0;
+      padding: 0 16px;
+      max-width: 200px;
+
+      mat-icon {
+        margin-right: 10px;
+      }
+    }
+
+    &__content {
+      padding: 50px;
+    }
+  }
+
+  &__title {
+    margin-left: 8px;
+
+    @media (max-width: 400px) {
+      font-size: 15px;
+    }
+
+    @media (max-width: 340px) {
+      font-size: 13px;
+    }
+  }
+
+  &__author {
+    position: absolute;
+    right: 0;
+    bottom: -16px;
+    font-size: 11px;
+  }
+}
