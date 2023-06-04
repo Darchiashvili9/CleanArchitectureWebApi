@@ -9,13 +9,6 @@ namespace CleanArchitecht.Application.Common.Interfaces.Persistence
 {
     public interface IQuoteRepository
     {
-   //     Task<List<QuestionWithAnswersViewModel>> GetAllQuotes();
-
         Task CreateQuote(QuoteDataModel data);
-
-    //    Task UpdateQuote(QuoteDataModel data);
-
-  //      Task DeleteQuote(int quoteId);
-
     }
 }
