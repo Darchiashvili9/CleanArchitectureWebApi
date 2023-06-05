@@ -14,10 +14,6 @@ import { AuthLayoutComponent } from './components/auth-layout/auth-layout.compon
 import { AppLayoutComponent } from './components/app-layout/app-layout.component';
 import { QuestionComponent } from './components/question/question.component';
 import { DialogComponent } from './components/dialog/dialog.component';
-import { UsersComponent } from './components/users/users.component';
-import { QuotesComponent } from './components/quotes/quotes.component';
-import { QuotesDialogComponent } from './components/quotes-dialog/quotes-dialog.component';
-import { UsersDialogComponent } from './components/users-dialog/users-dialog.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
@@ -31,10 +27,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     AppLayoutComponent,
     QuestionComponent,
     DialogComponent,
-    UsersComponent,
-    QuotesComponent,
-    QuotesDialogComponent,
-    UsersDialogComponent
   ],
   imports: [
     SharedModule,

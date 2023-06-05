@@ -61,10 +61,7 @@
   </mat-card>
 
 </div>
-<div class="quiz-restart" *ngIf="this.errorMessage">
-  <h1>{{this.errorMessage}}</h1>
-  <button mat-button mat-raised-button color="primary" (click)="this.restartQuiz()">RESTART</button>
-</div>
+
 <div class="loading-screen" *ngIf="this.loading">
   <mat-spinner diameter="70" color="accent"></mat-spinner>
 </div>

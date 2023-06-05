@@ -61,11 +61,6 @@ export class QuestionComponent implements OnInit {
 
     const answerId = this.mode === 'BINARY' ? this.answer.id : currentAnswerId;
 
-    this.quizService.questionChecking(this.mode, answerId, currentAnswer).subscribe((data) => {
-      this.isCorrect = data.isCorrect;
-      this.correctAnswer = data.correctAnswer;
-      this.loadingQuestion = false;
-    });
   }
 
   nextQuestion(): void {
@@ -73,35 +68,7 @@ export class QuestionComponent implements OnInit {
     this.isAnswered = false;
   }
 
-  restartQuiz(): void {
-    const dialogRef = this.dialog.open(DialogComponent, {
-      data: {
-        title: 'Are you sure you want to restart the game?',
-        content: 'All user history will be deleted!',
-        cancel: 'Cancel',
-        confirm: 'Restart'
-      }
-    });
 
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        this.quizService.restartQuiz().subscribe(() => {
-          this.generateQuestion();
-          this.errorMessage = '';
-
-          this.snackBar.open('The game is successfully restarted!', '', {
-            duration: 2000,
-            panelClass: 'snackbar-success'
-          });
-        }, error => {
-          this.snackBar.open(error, 'Something went wrong!', {
-            duration: 2000,
-            panelClass: 'snackbar-error'
-          });
-        });
-      }
-    });
-  }
 
   // TODO: Show loading
   ngOnInit(): void {

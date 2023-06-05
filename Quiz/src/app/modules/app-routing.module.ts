@@ -9,8 +9,6 @@ import { AppLayoutComponent } from './../components/app-layout/app-layout.compon
 import { LoginComponent } from './../components/login/login.component';
 import { RegisterComponent } from './../components/register/register.component';
 import { HomeComponent } from './../components/home/home.component';
-import { QuotesComponent } from './../components/quotes/quotes.component';
-import { UsersComponent } from './../components/users/users.component';
 import { SettingsComponent } from './../components/settings/settings.component';
 
 const routes: Routes = [
@@ -20,10 +18,8 @@ const routes: Routes = [
    children: [{ path: '', component: RegisterComponent }] },
   { path: 'quiz', component: AppLayoutComponent,
    children: [{ path: '', component: HomeComponent }], canActivate: [AuthGuard] },
-  { path: 'users', component: AppLayoutComponent,
-   children: [{ path: '', component: UsersComponent }], canActivate: [AuthGuard], data: { roles: [Role.Admin] } },
-  { path: 'quotes', component: AppLayoutComponent,
-   children: [{ path: '', component: QuotesComponent }], canActivate: [AuthGuard], data: { roles: [Role.Admin] } },
+  { path: 'users', component: AppLayoutComponent },
+  { path: 'quotes', component: AppLayoutComponent },
   { path: 'settings', component: AppLayoutComponent,
    children: [{ path: '', component: SettingsComponent }], canActivate: [AuthGuard] },
   { path: '**', redirectTo: 'quiz' }

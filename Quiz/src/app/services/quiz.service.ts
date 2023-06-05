@@ -20,13 +20,6 @@ export class QuizService {
     return this.http.get(`${environment.apiUrl}/Quiz/`);
   }
 
-  questionChecking(mode: string, answerId: number, currentAnswer?: boolean): Observable<any> {
-    return this.http.post(`${environment.apiUrl}/Quiz/question-checking`, {mode, answerId, currentAnswer});
-  }
-
-  restartQuiz(): Observable<any> {
-    return this.http.get(`${environment.apiUrl}/Quiz/restart-quiz`);
-  }
 
   selectGameMode(mode: string): void {
     localStorage.setItem('gameMode', mode.toString());
