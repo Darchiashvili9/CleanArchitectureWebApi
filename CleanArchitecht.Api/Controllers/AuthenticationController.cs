@@ -1,4 +1,5 @@
-﻿using CleanArchitecht.Application.Services.Authentication;
+﻿using CleanArchitecht.Application.Services.Authentication.Commands;
+using CleanArchitecht.Application.Services.Authentication.Queries;
 using CleanArchitecht.Contracts.Authentication;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,17 +9,19 @@ namespace CleanArchitecht.Api.Controllers
     [Route("auth")]
     public class AuthenticationController : ControllerBase
     {
-        private IAuthenticationService _authenticationService;
+        private IAuthenticationCommandService _authenticationCommandService;
+        private IAuthenticationQueryService _authenticationQueryService;
 
-        public AuthenticationController(IAuthenticationService authenticationService)
+        public AuthenticationController(IAuthenticationCommandService authenticationService, IAuthenticationQueryService authenticationQueryService)
         {
-            _authenticationService = authenticationService;
+            _authenticationCommandService = authenticationService;
+            _authenticationQueryService = authenticationQueryService;
         }
 
         [HttpPost("register")]
         public IActionResult Register(RegisterRequest request)
         {
-            var authResult = _authenticationService.Register(
+            var authResult = _authenticationCommandService.Register(
                 request.FirstName,
                 request.LastName,
                 request.Email,
@@ -38,7 +41,7 @@ namespace CleanArchitecht.Api.Controllers
         [HttpPost("login")]
         public IActionResult Login(LoginRequest request)
         {
-            var authResult = _authenticationService.Login(
+            var authResult = _authenticationQueryService.Login(
                 request.Email,
                 request.Password
                 );

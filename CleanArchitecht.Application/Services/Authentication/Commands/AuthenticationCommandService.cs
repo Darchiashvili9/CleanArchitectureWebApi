@@ -1,17 +1,18 @@
 ﻿using CleanArchitecht.Application.Common.Interfaces.Authentication;
+using CleanArchitecht.Application.Services.Authentication.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CleanArchitecht.Application.Services.Authentication
+namespace CleanArchitecht.Application.Services.Authentication.Commands
 {
-    public class AuthenticationService : IAuthenticationService
+    public class AuthenticationCommandService : IAuthenticationCommandService
     {
         private readonly IJwtTokenGenerator _jwtTokenGenerator;
 
-        public AuthenticationService(IJwtTokenGenerator jwtTokenGenerator)
+        public AuthenticationCommandService(IJwtTokenGenerator jwtTokenGenerator)
         {
             _jwtTokenGenerator = jwtTokenGenerator;
         }
@@ -27,11 +28,6 @@ namespace CleanArchitecht.Application.Services.Authentication
             var token = _jwtTokenGenerator.GenerateToken(userId, firstName, lastName);
 
             return new AuthenticationResult(userId, firstName, lastName, email, token);
-        }
-
-        public AuthenticationResult Login(string email, string password)
-        {
-            return new AuthenticationResult(Guid.NewGuid(), "firstanem", "lastName", email, "token");
         }
     }
 }

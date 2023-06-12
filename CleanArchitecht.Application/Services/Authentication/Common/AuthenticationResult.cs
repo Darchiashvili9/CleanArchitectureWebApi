@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CleanArchitecht.Application.Services.Authentication
+namespace CleanArchitecht.Application.Services.Authentication.Common
 {
     public record AuthenticationResult(
         Guid Id,
