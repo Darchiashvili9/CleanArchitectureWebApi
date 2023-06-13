@@ -1,59 +1,66 @@
-﻿using CleanArchitecht.Application.Services.Authentication.Commands;
-using CleanArchitecht.Application.Services.Authentication.Queries;
+﻿using CleanArchitecht.Application.Authentication.Commands.Register;
+using CleanArchitecht.Application.Authentication.Common;
+using CleanArchitecht.Application.Authentication.Queries.Login;
 using CleanArchitecht.Contracts.Authentication;
+using ErrorOr;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CleanArchitecht.Api.Controllers
 {
-    [ApiController]
     [Route("auth")]
-    public class AuthenticationController : ControllerBase
+    public class AuthenticationController : ApiController
     {
-        private IAuthenticationCommandService _authenticationCommandService;
-        private IAuthenticationQueryService _authenticationQueryService;
+        private readonly ISender _mediator;
 
-        public AuthenticationController(IAuthenticationCommandService authenticationService, IAuthenticationQueryService authenticationQueryService)
+        public AuthenticationController(ISender mediator)
         {
-            _authenticationCommandService = authenticationService;
-            _authenticationQueryService = authenticationQueryService;
+            _mediator = mediator;
         }
 
         [HttpPost("register")]
-        public IActionResult Register(RegisterRequest request)
+        public async Task<IActionResult> Register(RegisterRequest request)
         {
-            var authResult = _authenticationCommandService.Register(
+            var command = new RegisterCommand(
                 request.FirstName,
                 request.LastName,
                 request.Email,
                 request.Password
                 );
 
-            var response = new AuthenticationResponse(
-                authResult.Id,
-                authResult.FirstName,
-                authResult.LastName,
-                authResult.Email,
-                authResult.Token);
+            ErrorOr<AuthenticationResult> authResult = await _mediator.Send(command);
 
-            return Ok(response);
+
+            return authResult.Match(
+                 authResult => Ok(MapUthResult(authResult)),
+                 errors => Problem(errors));
+
         }
 
         [HttpPost("login")]
-        public IActionResult Login(LoginRequest request)
+        public async Task<IActionResult> Login(LoginRequest request)
         {
-            var authResult = _authenticationQueryService.Login(
+            var query = new LoginQuery(
                 request.Email,
                 request.Password
                 );
 
-            var response = new AuthenticationResponse(
-                authResult.Id,
-                authResult.FirstName,
-                authResult.LastName,
-                authResult.Email,
-                authResult.Token);
 
-            return Ok(response);
+            var authResult = await _mediator.Send(query);
+
+            return authResult.Match(
+                 authResult => Ok(MapUthResult(authResult)),
+                 errors => Problem(errors));
+        }
+
+        private static AuthenticationResponse MapUthResult(AuthenticationResult authResult)
+        {
+            return new AuthenticationResponse(
+                  authResult.User.Id,
+                  authResult.User.FirstName,
+                  authResult.User.LastName,
+                  authResult.User.Email,
+                  authResult.Token);
         }
 
     }

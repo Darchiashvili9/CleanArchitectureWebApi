@@ -1,6 +1,8 @@
 ﻿using CleanArchitecht.Application.Common.Interfaces.Authentication;
+using CleanArchitecht.Application.Common.Interfaces.Persistence;
 using CleanArchitecht.Application.Common.Interfaces.Services;
 using CleanArchitecht.Infrastructure.Authentication;
+using CleanArchitecht.Infrastructure.Persistence;
 using CleanArchitecht.Infrastructure.Services;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -21,6 +23,7 @@ namespace CleanArchitecht.Infrastructure
             services.Configure<JwtSettings>(configuration.GetSection(JwtSettings.SectionName));
             services.AddSingleton<IJwtTokenGenerator, JwtTokenGenerator>();
             services.AddSingleton<IDateTimeProvider, DateTimeProvider>();
+            services.AddScoped<IUserRepository, UserRepository>();
 
 
             return services;
