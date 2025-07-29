@@ -19,7 +19,6 @@ namespace CleanArchitecht.Api.Controllers
         public async Task<IActionResult> GetRandomQuestion()
         {
             QuestionWithAnswersViewModel question;
-
             try
             {
                 question = await this.quizService.GetRandomQuestion();
@@ -39,9 +38,9 @@ namespace CleanArchitecht.Api.Controllers
             question.Question = new QuestionViewModel { Id = 1, Text = "What is the capital of Deutschland?" };
             question.Answers = new List<AnswerViewModel>
             {
-                new AnswerViewModel { Id = 1, Text = "Munchen", IsCorrect = true },
+                new AnswerViewModel { Id = 1, Text = "Munchen", IsCorrect = false },
                 new AnswerViewModel { Id = 2, Text = "Koln", IsCorrect = false },
-                new AnswerViewModel { Id = 3, Text = "Berlin", IsCorrect = false },
+                new AnswerViewModel { Id = 3, Text = "Berlin", IsCorrect = true },
                 new AnswerViewModel { Id = 4, Text = "Stuttgart", IsCorrect = false }
             };
 

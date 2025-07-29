@@ -15,4 +15,28 @@
       <button mat-button mat-raised-button color="primary" type="submit">Save</button>
     </mat-card-actions>
   </mat-card>
-</form>
+
+
+
+  <form [formGroup]="quizForm" (ngSubmit)="submitQuiz()">
+    <div>
+      <label>Question:</label>
+      <input formControlName="question" placeholder="Enter your question" />
+    </div>
+
+    <div formArrayName="answers">
+      <div *ngFor="let answer of answers.controls; let i = index" [formGroupName]="i">
+        <input formControlName="text" placeholder="Answer {{ i + 1 }}" />
+
+        <label>
+          <input type="checkbox" formControlName="isCorrect" />
+          Correct Answer
+        </label>
+
+        <button type="button" (click)="removeAnswer(i)">Remove</button>
+      </div>
+      <button type="button" (click)="addAnswer()">Add Answer</button>
+    </div>
+
+    <button type="submit">Submit</button>
+  </form>

@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { QuizService } from '../../services/quiz.service';
+import { AnswerDataModel } from '../../models/quote';
 
 @Component({
   selector: 'app-settings',
@@ -14,14 +15,26 @@ export class SettingsComponent implements OnInit {
   binary = true;
   multiple = false;
   mode = '';
+  quizForm: FormGroup;
+  loading = false;
+  errorMessage = '';
+
 
   constructor(
     formBuilder: FormBuilder,
     private snackBar: MatSnackBar,
-    private quizService: QuizService) {
+    private quizService: QuizService,
+    private fb: FormBuilder) {
     this.settingsForm = formBuilder.group({
       binary: true,
       multiple: false
+    });
+    this.quizForm = this.fb.group({
+      question: ['', Validators.required],
+      answers: this.fb.array([
+        this.fb.group({ text: [''], isCorrect: [false] }),
+        this.fb.group({ text: [''], isCorrect: [false] })
+      ])
     });
   }
 
@@ -30,7 +43,7 @@ export class SettingsComponent implements OnInit {
     this.settingsForm.get('multiple')?.setValue(!binary);
   }
 
-  toggleMultiple():void {
+  toggleMultiple(): void {
     const multiple = this.settingsForm.get('multiple')?.value;
     this.settingsForm.get('binary')?.setValue(!multiple);
   }
@@ -62,4 +75,72 @@ export class SettingsComponent implements OnInit {
     }
   }
 
+  get answers(): FormArray {
+    return this.quizForm.get('answers') as FormArray;
+  }
+
+  addAnswer(): void {
+    this.answers.push(
+      this.fb.group({
+        text: [''],
+        isCorrect: [false]
+      })
+    );
+  }
+
+  removeAnswer(index: number): void {
+    this.answers.removeAt(index);
+  }
+
+  //submitQuiz(): void {
+  //  if (this.quizForm.valid) {
+  //    const quoteText = this.quizForm.value.question;
+  //    const answers = this.quizForm.value.answers.map((a: any) => a.text);
+
+  //    this.quizService.addQuote(quoteText, answers).subscribe({
+  //      next: (res) => {
+  //        console.log('Quote added successfully:', res);
+  //        this.quizForm.reset();
+  //        // optionally reinitialize answer fields:
+  //        this.answers.clear();
+  //        this.addAnswer();
+  //        this.addAnswer();
+
+  //        this.loading = false;
+  //      }, error: (error) => {
+
+  //        this.errorMessage = error;
+  //        this.loading = false;
+  //      });
+  //  }
+
+  //}
+
+
+
+  submitQuiz(): void {
+    if (this.quizForm.valid) {
+      const quoteText = this.quizForm.value.question;
+      const answers: AnswerDataModel[] = this.quizForm.value.answers.map((a: any) => {
+        const answer = new AnswerDataModel();
+        answer.text = a.text;
+        answer.isCorrect = a.isCorrect ?? false;
+        return answer;
+      });
+
+      this.quizService.addQuote(quoteText, answers).subscribe({
+        next: (res) => {
+          console.log('Quote added successfully:', res);
+          this.quizForm.reset();
+          // optionally reinitialize answer fields:
+          this.answers.clear();
+          this.addAnswer();
+          this.addAnswer();
+        },
+        error: (err) => {
+          console.error('Error adding quote:', err);
+        }
+      });
+    }
+  }
 }
