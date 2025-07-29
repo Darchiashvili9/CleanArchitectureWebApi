@@ -61,6 +61,18 @@ export class QuestionComponent implements OnInit {
 
     const answerId = this.mode === 'BINARY' ? this.answer.id : currentAnswerId;
 
+
+    const isCorrectAnswer = currentAnswer === this.answer?.isCorrect;
+
+
+    this.isCorrect = isCorrectAnswer;
+    this.isAnswered = true;
+    this.correctAnswer = this.answer;
+
+    this.loadingQuestion = false;
+
+
+
   }
 
   nextQuestion(): void {
