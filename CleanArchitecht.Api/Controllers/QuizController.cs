@@ -15,7 +15,7 @@ namespace CleanArchitecht.Api.Controllers
             this.quizService = quizService;
         }
 
-        [HttpGet]
+        [HttpGet("GetRandomQuestion")]
         public async Task<IActionResult> GetRandomQuestion()
         {
             QuestionWithAnswersViewModel question;
@@ -31,6 +31,21 @@ namespace CleanArchitecht.Api.Controllers
             return Ok(question);
         }
 
+        [HttpGet("GetTestDeutschland")]
+        public IActionResult GetTestDeutschland()
+        {
+            QuestionWithAnswersViewModel question = new();
 
+            question.Question = new QuestionViewModel { Id = 1, Text = "What is the capital of Deutschland?" };
+            question.Answers = new List<AnswerViewModel>
+            {
+                new AnswerViewModel { Id = 1, Text = "Munchen", IsCorrect = true },
+                new AnswerViewModel { Id = 2, Text = "Koln", IsCorrect = false },
+                new AnswerViewModel { Id = 3, Text = "Berlin", IsCorrect = false },
+                new AnswerViewModel { Id = 4, Text = "Stuttgart", IsCorrect = false }
+            };
+
+            return Ok(question);
+        }
     }
 }

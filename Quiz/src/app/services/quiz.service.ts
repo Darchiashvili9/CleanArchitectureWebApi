@@ -15,9 +15,12 @@ export class QuizService {
     this.gameModeSubject = new BehaviorSubject<string>(localStorage.getItem('gameMode') || 'BINARY');
     this.gameMode$ = this.gameModeSubject.asObservable();
   }
-
+  /**
+   * Fetches a new quiz question from the API.
+   * @returns An observable containing the quiz question data.
+   */
   questionGenerator(): Observable<any> {
-    return this.http.get(`${environment.apiUrl}/Quiz/`);
+    return this.http.get(`${environment.apiUrl}/Quiz/GetRandomQuestion`);
   }
 
 
